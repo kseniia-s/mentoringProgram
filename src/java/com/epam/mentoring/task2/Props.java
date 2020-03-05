@@ -1,9 +1,8 @@
 package com.epam.mentoring.task2;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Props {
 
@@ -13,15 +12,15 @@ public class Props {
     private void reverseProps() {
         for (Map.Entry<Integer, String> entry : properties.entrySet()) {
             if (reverseProperties.containsKey(entry.getValue())) {
-                throw new RuntimeException("A duplicate key was found. Check the initial properties file first");
+                throw new DuplicateKeyException("A duplicate key was found. Check the initial properties file first");
             } else {
                 reverseProperties.put(entry.getValue(), entry.getKey());
             }
         }
     }
 
-    private void printSortedMap(Map<String, Integer> props) {
-        props.keySet().stream().sorted().forEach(System.out::println);
+    private List<String> sortKeys(Map<String, Integer> props) {
+        return props.keySet().stream().sorted().collect(Collectors.toList());
     }
 
     private void readProps(String propertiesFileName) {
@@ -34,10 +33,24 @@ public class Props {
         }
     }
 
+    private void saveNewSortedProperties() {
+        FileWriter out = null;
+        try {
+            out = new FileWriter("src\\resources\\test_out.properties");
+            List<String> sortedKeys = sortKeys(reverseProperties);
+            for (String key : sortedKeys) {
+                out.write(key + "=" + reverseProperties.get(key) + "\n");
+            }
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         Props props = new Props();
         props.readProps("test.properties");
         props.reverseProps();
-        props.printSortedMap(props.reverseProperties);
+        props.saveNewSortedProperties();
     }
 }
