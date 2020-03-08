@@ -1,4 +1,4 @@
-package com.epam.mentoring.task2;
+package com.epam.mentoring.module2.task2;
 
 import java.io.*;
 import java.util.*;
@@ -34,9 +34,8 @@ public class Props {
     }
 
     private void saveNewSortedProperties() {
-        FileWriter out = null;
         try {
-            out = new FileWriter("src\\resources\\test_out.properties");
+            FileWriter out = new FileWriter("src\\resources\\test_out.properties");
             List<String> sortedKeys = sortKeys(reverseProperties);
             for (String key : sortedKeys) {
                 out.write(key + "=" + reverseProperties.get(key) + "\n");
