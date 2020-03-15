@@ -1,4 +1,4 @@
-package com.epam.mentoring.task1;
+package com.epam.mentoring.module2.task1;
 
 import java.util.Arrays;
 
