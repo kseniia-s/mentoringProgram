@@ -1,43 +1,29 @@
 package module3;
 
-import module3.stepDefs.WikipediaPagesStepDef;
-import org.jbehave.core.configuration.Configuration;
-import org.jbehave.core.configuration.MostUsefulConfiguration;
-import org.jbehave.core.io.CodeLocations;
-import org.jbehave.core.io.LoadFromClasspath;
-import org.jbehave.core.io.StoryFinder;
-import org.jbehave.core.junit.JUnitStories;
-import org.jbehave.core.reporters.StoryReporterBuilder;
-import org.jbehave.core.steps.*;
+import module3.enums.BrowserType;
+import org.assertj.core.util.Lists;
+import org.jbehave.core.embedder.Embedder;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class WikiTestsRun extends JUnitStories {
+@RunWith(JUnit4.class)
+public class WikiTestsRun {
 
-    @Override
-    public Configuration configuration() {
-        return new MostUsefulConfiguration()
-                .useStoryLoader(new LoadFromClasspath(this.getClass().getClassLoader()))
-                .useStoryReporterBuilder(new StoryReporterBuilder()
-                        .withFailureTrace(true)
-                );
-    }
+    private List<BrowserType> browserList = Lists.list(BrowserType.CHROME, BrowserType.FIREFOX, BrowserType.IE);
 
-    @Override
-    public InjectableStepsFactory stepsFactory() {
-        ArrayList<Steps> stepFileList = new ArrayList<>();
-        stepFileList.add(new WikipediaPagesStepDef());
+    @Test
+    public void runTests() {
 
-        return new InstanceStepsFactory(configuration(), stepFileList);
-    }
-
-    protected List<String> storyPaths() {
-        return new StoryFinder().
-                findPaths(CodeLocations.codeLocationFromClass(
-                        this.getClass()),
-                        Collections.singletonList("**/*.story"),
-                        Collections.singletonList(""));
+        for (BrowserType browserType : browserList) {
+            try {
+                BrowserRunner runner = new BrowserRunner(browserType);
+                runner.run();
+            } catch (Embedder.RunningStoriesFailed e) {
+                // pass execution to next browser
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@ package module3.pageObjects;
 
 import module3.enums.GeoPoint;
 import module3.pageObjects.components.WikiCalendar;
-import module3.settings.Browser;
+import module3.settings.ScenarioContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -49,6 +49,6 @@ public class SearchResultsPage extends BasePage {
     }
 
     public WikiCalendar getCalendar() {
-        return new WikiCalendar(Browser.getDriver().findElement(calendar));
+        return new WikiCalendar(ScenarioContext.context().getBrowser().findElement(calendar));
     }
 }

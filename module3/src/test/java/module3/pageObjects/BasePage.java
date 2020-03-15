@@ -1,6 +1,5 @@
 package module3.pageObjects;
 
-import module3.settings.Browser;
 import module3.settings.ScenarioContext;
 import org.openqa.selenium.support.PageFactory;
 
@@ -12,7 +11,7 @@ public abstract class BasePage {
     BasePage() {
         waitPageToBeCompletelyLoaded();
         waitForPageSourcesToBeCompletelyLoaded();
-        PageFactory.initElements(Browser.getDriver(), this);
+        PageFactory.initElements(ScenarioContext.context().getBrowser(), this);
         ScenarioContext.context().setCurrentPage(this);
     }
 }

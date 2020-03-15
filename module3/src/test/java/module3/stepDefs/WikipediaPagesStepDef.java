@@ -1,15 +1,13 @@
 package module3.stepDefs;
 
+import module3.enums.BrowserType;
 import module3.enums.GeoPoint;
 import module3.helpers.Utils;
 import module3.pageObjects.SearchResultsPage;
 import module3.pageObjects.HomePage;
-import module3.settings.Browser;
+import module3.settings.Context;
 import module3.settings.ScenarioContext;
-import org.jbehave.core.annotations.AfterStories;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 import org.jbehave.core.steps.Steps;
 import org.junit.Assert;
 
@@ -17,15 +15,23 @@ import java.util.List;
 
 public class WikipediaPagesStepDef extends Steps {
 
-    @AfterStories
-    public void quit()
-    {
-        Browser.tearDown();
+    @BeforeStory
+    public void setup() {
+        ScenarioContext.initContext(new Context(BrowserType.valueOf(System.getProperty("browser").toUpperCase())));
+    }
+
+    @AfterStory
+    public void tearDown() {
+        ScenarioContext.context().cleanup();
     }
 
     @Given("an opened browser with an $URL")
     public void anOpenedBrowserWithABaseURL(String URL) {
-        Browser.getDriver().navigate().to(URL);
+        ScenarioContext
+                .context()
+                .getBrowser()
+                .navigate()
+                .to(URL);
     }
 
     @When("user searches events that occurred in the same day as today")
