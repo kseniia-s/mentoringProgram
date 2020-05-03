@@ -2,7 +2,7 @@ Feature: User login
 
 Scenario: Login as existing user
     Given opened browser with github home page 'https://github.com/'
-    When user clicks on 'Sign in' button
+    When user clicks on Sign in button
     And user fills a login form
     |userName|password|
     |fitah20745@homedepinst.com|htcnhernehbpfwbz1!|

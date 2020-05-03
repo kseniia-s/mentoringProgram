@@ -11,21 +11,27 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import sun.rmi.runtime.Log;
 
 import java.util.*;
 
 public class LoginStepDefs extends SpringIntegrationTest {
     @Autowired
-    public WebDriver driver;
+    private WebDriver driver;
+
+    @Autowired
+    private HomePage homePage;
+    @Autowired
+    private LoginPage loginPage;
 
     @Given("opened browser with github home page {string}")
     public void openedBrowserWithGithubHomePage(String string) {
         driver.navigate().to(string);
     }
 
-    @When("user clicks on {string} button")
-    public void userClicksOnSignInButton(String string) {
-        new HomePage().clickOnSignIn();
+    @When("user clicks on Sign in button")
+    public void userClicksOnSignInButton(){
+        homePage.clickOnSignIn();
     }
 
     @And("user fills a login form")
@@ -43,7 +49,7 @@ public class LoginStepDefs extends SpringIntegrationTest {
 
     @And("user clicks on Sign in button at the login form")
     public void userClicksOnSignInButtonAtTheLoginForm() {
-        new LoginPage().clickSignInButton();
+        loginPage.clickSignInButton();
     }
 
     @Then("user is logged in")

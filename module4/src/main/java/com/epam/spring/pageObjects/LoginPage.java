@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginPage {
 
-    @FindBy(id="")
+    @FindBy(id="login_field")
     private WebElement userNameField;
 
-    @FindBy(id="")
+    @FindBy(id="password")
     private WebElement passwordField;
 
-    @FindBy(id="")
+    @FindBy(name="commit")
     private WebElement signInButton;
 
     public void fillLoginForm(String userName, String password){
