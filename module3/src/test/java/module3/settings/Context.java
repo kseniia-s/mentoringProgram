@@ -77,7 +77,7 @@ public class Context {
                 FirefoxDriver firefoxDriver = new FirefoxDriver();
                 firefoxDriver.manage().window().maximize();
                 firefoxDriver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
-                return new FirefoxDriver();
+                return firefoxDriver;
             case IE:
                 WebDriverManager.iedriver().setup();
                 InternetExplorerOptions ieOptions = new InternetExplorerOptions();
