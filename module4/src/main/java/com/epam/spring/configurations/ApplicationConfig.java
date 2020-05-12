@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @ComponentScan(basePackages = "com.epam.spring")
+@PropertySource("classpath:github.properties")
+@PropertySource("classpath:test.properties")
 public class ApplicationConfig {
 
     @Bean(destroyMethod = "close")

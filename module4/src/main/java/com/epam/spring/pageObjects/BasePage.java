@@ -9,4 +9,8 @@ public abstract class BasePage {
 
     @Autowired
     private WebDriver driver;
+
+    public void waitForPageLoaded(){
+
+    }
 }

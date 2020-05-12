@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoginPage {
+public class LoginPage extends BasePage{
 
     @FindBy(id="login_field")
     private WebElement userNameField;
@@ -16,12 +16,20 @@ public class LoginPage {
     @FindBy(name="commit")
     private WebElement signInButton;
 
-    public void fillLoginForm(String userName, String password){
-        userNameField.sendKeys(userName);
-        passwordField.sendKeys(password);
-    }
+//    public void fillLoginForm(String userName, String password){
+//        userNameField.sendKeys(userName);
+//        passwordField.sendKeys(password);
+//    }
 
     public void clickSignInButton(){
         signInButton.click();
+    }
+
+    public void setUsername(String username) {
+        userNameField.sendKeys(username);
+    }
+
+    public void setPassword(String password) {
+        passwordField.sendKeys(password);
     }
 }
