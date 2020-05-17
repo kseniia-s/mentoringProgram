@@ -8,6 +8,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,18 +17,24 @@ public class LoginStepDefs extends SpringIntegrationTest {
 
     @Autowired
     private WebDriver driver;
+
     @Autowired
     private HomePage homePage;
+
     @Autowired
     private LoginPage loginPage;
+
     @Autowired
     private WelcomePage welcomePage;
 
     @Value("${github.username}")
-    private String predefinedUsername;
+    private String predefinedUserName;
+
+    @Value("${github.useremail}")
+    private String predefinedUserEmail;
 
     @Value("${github.password}")
-    private String predefinedPassword;
+    private String predefinedUserPassword;
 
     @Given("opened browser with github home page {string}")
     public void openedBrowserWithGithubHomePage(String string) {
@@ -35,30 +42,25 @@ public class LoginStepDefs extends SpringIntegrationTest {
     }
 
     @When("user clicks on Sign in button")
-    public void userClicksOnSignInButton(){
+    public void userClicksOnSignInButton() {
         homePage.clickOnSignIn();
     }
 
-//    @And("user fills a login form with {string} and {string}")
-//    public void userFillsALoginFormWithUsernameAndPassword(String username, String password) {
-//        loginPage.setUsername(username);
-//        loginPage.setPassword(password);
-//    }
-
     @And("user fills a login form with predefined username and password")
     public void userFillsALoginFormWithPredefinedUsernameAndPassword() {
-        loginPage.setUsername(predefinedUsername);
-        loginPage.setPassword(predefinedPassword);
+        loginPage.setUsername(predefinedUserEmail);
+        loginPage.setPassword(predefinedUserPassword);
     }
 
     @And("user clicks on Sign in button at the login form")
     public void userClicksOnSignInButtonAtTheLoginForm() {
         loginPage.clickSignInButton();
-        welcomePage.waitForPageLoaded();
+        welcomePage.waitForPageToBeLoaded();
     }
 
     @Then("user is logged in")
     public void userIsLoggedIn() {
-//        Assert.assertTrue(welcomePage.isOpened(), "Welcome page is not opened");
+        Boolean userIsLoggedIn = welcomePage.isUserLoggedIn(predefinedUserName);
+        Assert.assertTrue("Welcome page is not opened", userIsLoggedIn);
     }
 }

@@ -5,23 +5,18 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
-    @FindBy(id="login_field")
+    @FindBy(id = "login_field")
     private WebElement userNameField;
 
-    @FindBy(id="password")
+    @FindBy(id = "password")
     private WebElement passwordField;
 
-    @FindBy(name="commit")
+    @FindBy(name = "commit")
     private WebElement signInButton;
 
-//    public void fillLoginForm(String userName, String password){
-//        userNameField.sendKeys(userName);
-//        passwordField.sendKeys(password);
-//    }
-
-    public void clickSignInButton(){
+    public void clickSignInButton() {
         signInButton.click();
     }
 
