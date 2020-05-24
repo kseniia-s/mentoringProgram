@@ -13,13 +13,17 @@ public class SearchResultsPage extends BasePage {
     @FindBy(xpath = "//ul[@class='repo-list']/li")
     private List<WebElement> repositoriesList;
 
-    private By repositoryName = By.tagName("data-hydro-click");
+    private By fullRepositoryName = By.xpath("//div[contains(@class,'text-normal')]//a");
 
     public List<WebElement> getRepositoriesList() {
         return repositoriesList;
     }
 
-    public void clickOn() {
-        repositoriesList.get(0).findElement(repositoryName).click();
+    public int getResultsCount() {
+        return waitAllElementsToBeVisibleAndReturnList(repositoriesList).size();
+    }
+
+    public void openFirstFoundRepo() {
+        repositoriesList.get(0).findElement(fullRepositoryName).click();
     }
 }

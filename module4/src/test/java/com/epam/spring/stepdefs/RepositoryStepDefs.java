@@ -31,13 +31,14 @@ public class RepositoryStepDefs {
 
     @Then("repository list are shown on results page")
     public void repositoryListAreShownOnResultsPage() {
-        int resultsCount = searchResultsPage.getRepositoriesList().size();
+        searchResultsPage.waitForPageToBeLoaded();
+        int resultsCount = searchResultsPage.getResultsCount();
         Assert.assertTrue("Results are not found", resultsCount > 0);
     }
 
     @And("user opens the first repository by clicking on the title")
     public void userOpensTheFirstRepositoryByClickingOnTheTitle() {
-        searchResultsPage.getRepositoriesList().get(0).click();
+        searchResultsPage.openFirstFoundRepo();
     }
 
     @Then("repository {string} is opened")

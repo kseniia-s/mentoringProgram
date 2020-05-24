@@ -11,6 +11,6 @@ public class RepositoryPage extends BasePage {
     private WebDriver driver;
 
     public boolean repositoryIsOpened(String repoName) {
-        return driver.getCurrentUrl().contains(repoName) && driver.getTitle().contains(repoName);
+        return driver.getCurrentUrl().toLowerCase().contains(repoName) && driver.getTitle().toLowerCase().contains(repoName);
     }
 }

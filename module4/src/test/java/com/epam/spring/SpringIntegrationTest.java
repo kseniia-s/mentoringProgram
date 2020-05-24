@@ -1,10 +1,13 @@
 package com.epam.spring;
 
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @ActiveProfiles(profiles = "chrome")
+@TestExecutionListeners(value = {
+        GithubTestExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class
+})
 public class SpringIntegrationTest {
 }

@@ -11,12 +11,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class LoginStepDefs extends SpringIntegrationTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginStepDefs.class);
 
     @Autowired
     private WebDriver driver;
