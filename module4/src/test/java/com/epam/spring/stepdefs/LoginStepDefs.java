@@ -1,6 +1,7 @@
 package com.epam.spring.stepdefs;
 
 import com.epam.spring.SpringIntegrationTest;
+import com.epam.spring.configurations.ApplicationConfig;
 import com.epam.spring.pageObjects.HomePage;
 import com.epam.spring.pageObjects.LoginPage;
 import com.epam.spring.pageObjects.WelcomePage;
@@ -12,7 +13,9 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
 
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class LoginStepDefs extends SpringIntegrationTest {
 
     @Autowired

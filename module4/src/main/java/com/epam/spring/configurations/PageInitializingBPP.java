@@ -1,5 +1,6 @@
 package com.epam.spring.configurations;
 
+import com.epam.spring.pageObjects.BaseItem;
 import com.epam.spring.pageObjects.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -16,7 +17,7 @@ public class PageInitializingBPP implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if(BasePage.class.isAssignableFrom(bean.getClass())){
+        if (BasePage.class.isAssignableFrom(bean.getClass()) || BaseItem.class.isAssignableFrom(bean.getClass())) {
             PageFactory.initElements(driver, bean);
         }
         return bean;

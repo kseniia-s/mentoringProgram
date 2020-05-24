@@ -12,10 +12,10 @@ public class HomePage extends BasePage {
     @Autowired
     private SearchBar searchBar;
 
-    @FindBy(xpath="//a[contains(@href,'login')]")
+    @FindBy(xpath = "//a[contains(@href,'login')]")
     private WebElement signInButton;
 
-    public void clickOnSignIn(){
+    public void clickOnSignIn() {
         signInButton.click();
     }
 }
