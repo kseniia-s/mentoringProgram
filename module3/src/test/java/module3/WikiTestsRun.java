@@ -12,28 +12,36 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RunWith(JUnit4.class)
 public class WikiTestsRun {
 
-    private List<BrowserType> browserList = Lists.list(BrowserType.CHROME, BrowserType.FIREFOX, BrowserType.IE);
+    private List<BrowserType> browserList;
 
     @Test
     public void runTests() {
-
-        FileSystemResultsWriter results = new FileSystemResultsWriter(Paths.get("target/allure-results"));
-        final AllureLifecycle lifecycle = new AllureLifecycle(results);
-        StepsAspects.setLifecycle(lifecycle);
-        AttachmentsAspects.setLifecycle(lifecycle);
+        String browsers = System.getProperty("browser", "chrome,firefox,ie");
+        if (!browsers.isEmpty()) {
+            browserList = parse(browsers);
+        }
 
         for (BrowserType browserType : browserList) {
             try {
-                BrowserRunner runner = new BrowserRunner(browserType, lifecycle);
+                BrowserRunner runner = new BrowserRunner(browserType);
                 runner.run();
             } catch (Embedder.RunningStoriesFailed e) {
                 // pass execution to next browser
             }
         }
+    }
+
+    private List<BrowserType> parse(String browsers) {
+        return Arrays.stream(browsers.split(","))
+                .map(s -> s.trim().toUpperCase())
+                .map(BrowserType::valueOf)
+                .collect(Collectors.toList());
     }
 }

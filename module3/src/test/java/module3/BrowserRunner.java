@@ -1,6 +1,9 @@
 package module3;
 
 import io.qameta.allure.AllureLifecycle;
+import io.qameta.allure.FileSystemResultsWriter;
+import io.qameta.allure.aspects.AttachmentsAspects;
+import io.qameta.allure.aspects.StepsAspects;
 import io.qameta.allure.jbehave.AllureJbehave;
 import module3.enums.BrowserType;
 import module3.stepDefs.WikipediaPagesStepDef;
@@ -18,6 +21,7 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.core.steps.Steps;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,11 +31,9 @@ import static org.jbehave.core.reporters.Format.*;
 public class BrowserRunner extends ConfigurableEmbedder {
 
     private BrowserType browserType;
-    private AllureJbehave allureReporter;
 
-    public BrowserRunner(BrowserType type, AllureLifecycle lifecycle) {
+    public BrowserRunner(BrowserType type) {
         browserType = type;
-        allureReporter = new AllureJbehave(lifecycle);
     }
 
     @Override
@@ -48,11 +50,16 @@ public class BrowserRunner extends ConfigurableEmbedder {
 
     @Override
     public Configuration configuration() {
+        FileSystemResultsWriter results = new FileSystemResultsWriter(Paths.get("target/allure-results"));
+        final AllureLifecycle lifecycle = new AllureLifecycle(results);
+        StepsAspects.setLifecycle(lifecycle);
+        AttachmentsAspects.setLifecycle(lifecycle);
+
         return new MostUsefulConfiguration()
                 .useStoryLoader(new LoadFromClasspath(this.getClass().getClassLoader()))
                 .useStoryParser(new PrefixNameStoryParser(String.valueOf(this.browserType)))
                 .useStoryReporterBuilder(new StoryReporterBuilder()
-                .withReporters(allureReporter)
+                .withReporters(new AllureJbehave(lifecycle))
 //                        .withCodeLocation(CodeLocations.codeLocationFromClass(this.getClass()))
                 .withDefaultFormats()
                 .withFormats(CONSOLE, TXT, HTML, XML)
