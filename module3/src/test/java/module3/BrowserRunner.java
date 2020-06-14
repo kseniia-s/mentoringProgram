@@ -11,7 +11,7 @@ import org.jbehave.core.embedder.Embedder;
 import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.StoryFinder;
-import org.jbehave.core.parsers.MyStoryParser;
+import org.jbehave.core.parsers.PrefixNameStoryParser;
 import org.jbehave.core.reporters.CrossReference;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
@@ -50,7 +50,7 @@ public class BrowserRunner extends ConfigurableEmbedder {
     public Configuration configuration() {
         return new MostUsefulConfiguration()
                 .useStoryLoader(new LoadFromClasspath(this.getClass().getClassLoader()))
-                .useStoryParser(new MyStoryParser(String.valueOf(this.browserType)))
+                .useStoryParser(new PrefixNameStoryParser(String.valueOf(this.browserType)))
                 .useStoryReporterBuilder(new StoryReporterBuilder()
                 .withReporters(allureReporter)
 //                        .withCodeLocation(CodeLocations.codeLocationFromClass(this.getClass()))
