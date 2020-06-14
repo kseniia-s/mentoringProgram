@@ -8,7 +8,7 @@ import static module3.helpers.WaitHelpers.waitPageToBeCompletelyLoaded;
 
 public abstract class BasePage {
 
-    BasePage() {
+    public BasePage() {
         waitPageToBeCompletelyLoaded();
         waitForPageSourcesToBeCompletelyLoaded();
         PageFactory.initElements(ScenarioContext.context().getBrowser(), this);

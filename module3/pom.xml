@@ -64,6 +64,7 @@
             <version>2.3.0</version>
         </dependency>
 
+
         <!-- to solve the error "SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder" -->
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <dependency>
@@ -71,6 +72,12 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.1</version>
             <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-jbehave -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-jbehave</artifactId>
+            <version>2.13.3</version>
         </dependency>
     </dependencies>
 
@@ -96,6 +103,14 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <reportVersion>2.3.1</reportVersion>
                 </configuration>
             </plugin>
         </plugins>
