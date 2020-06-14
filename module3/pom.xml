@@ -55,7 +55,7 @@
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-core</artifactId>
-            <version>3.9.3</version>
+            <version>4.5.1</version>
         </dependency>
 
         <dependency>
@@ -74,16 +74,10 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-jbehave -->
-<!--        <dependency>-->
-<!--            <groupId>io.qameta.allure</groupId>-->
-<!--            <artifactId>allure-jbehave</artifactId>-->
-<!--            <version>2.6.0</version>-->
-<!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.allure/allure-java -->
         <dependency>
-            <groupId>io.tapack</groupId>
-            <artifactId>allure-jbehave-reporter</artifactId>
-            <version>0.1</version>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-jbehave</artifactId>
+            <version>2.13.3</version>
         </dependency>
     </dependencies>
 
@@ -111,14 +105,14 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>io.qameta.allure</groupId>-->
-<!--                <artifactId>allure-maven</artifactId>-->
-<!--                <version>2.9</version>-->
-<!--                <configuration>-->
-<!--                    <reportVersion>2.3.1</reportVersion>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <reportVersion>2.3.1</reportVersion>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

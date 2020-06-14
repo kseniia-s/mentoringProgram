@@ -1,6 +1,10 @@
 package module3;
 
-import io.tapack.allure.jbehave.AllureReporter;
+import io.qameta.allure.AllureLifecycle;
+import io.qameta.allure.FileSystemResultsWriter;
+import io.qameta.allure.aspects.AttachmentsAspects;
+import io.qameta.allure.aspects.StepsAspects;
+import io.qameta.allure.jbehave.AllureJbehave;
 import module3.enums.BrowserType;
 import module3.stepDefs.WikipediaPagesStepDef;
 import org.jbehave.core.ConfigurableEmbedder;
@@ -27,12 +31,6 @@ import static org.jbehave.core.reporters.Format.*;
 public class BrowserRunner extends ConfigurableEmbedder {
 
     private BrowserType browserType;
-//    private AllureJbehave allureReporter;
-
-//    public BrowserRunner(BrowserType type, AllureLifecycle lifecycle) {
-//        browserType = type;
-//        allureReporter = new AllureJbehave(lifecycle);
-//    }
 
     public BrowserRunner(BrowserType type) {
         browserType = type;
@@ -46,16 +44,21 @@ public class BrowserRunner extends ConfigurableEmbedder {
             embedder.runStoriesAsPaths(storyPaths());
         } finally {
             embedder.generateCrossReference();
-//            embedder.generateSurefireReport();
+            embedder.generateSurefireReport();
         }
     }
 
     @Override
     public Configuration configuration() {
+        FileSystemResultsWriter results = new FileSystemResultsWriter(Paths.get("target/allure-results"));
+        final AllureLifecycle lifecycle = new AllureLifecycle(results);
+        StepsAspects.setLifecycle(lifecycle);
+        AttachmentsAspects.setLifecycle(lifecycle);
+
         return new MostUsefulConfiguration()
                 .useStoryLoader(new LoadFromClasspath(this.getClass().getClassLoader()))
                 .useStoryReporterBuilder(new StoryReporterBuilder()
-                        .withReporters(new AllureReporter())
+                        .withReporters(new AllureJbehave(lifecycle))
 //                        .withCodeLocation(CodeLocations.codeLocationFromClass(this.getClass()))
                         .withDefaultFormats()
                         .withFormats(CONSOLE, TXT, HTML, XML)
