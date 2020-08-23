@@ -2,11 +2,10 @@ package com.epam.spring;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.Ordered;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.TestExecutionListener;
 
-public class GithubTestExecutionListener implements TestExecutionListener, Ordered {
+public class GithubTestExecutionListener implements TestExecutionListener{
     private static final Logger logger = LoggerFactory.getLogger(GithubTestExecutionListener.class);
 
     public void beforeTestClass(TestContext testContext) throws Exception {
@@ -28,9 +27,4 @@ public class GithubTestExecutionListener implements TestExecutionListener, Order
     public void afterTestClass(TestContext testContext) throws Exception {
         logger.info("afterTestClass : {}", testContext.getTestClass());
     }
-
-    @Override
-    public int getOrder() {
-        return Integer.MAX_VALUE;
-    };
 }
